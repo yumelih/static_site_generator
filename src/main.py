@@ -1,6 +1,7 @@
 import os
 import glob
 import shutil
+import sys
 
 from textnode import TextNode, TextType
 from inline_markdown import split_nodes_delimiter, extract_markdown_images
@@ -8,7 +9,7 @@ from block_markdown import markdown_to_blocks
 from copy_static import copy_files_recursive
 from generate_page import generate_page, generate_page_recursive
 
-public_path = 'public'
+public_path = 'docs'
 static_path = 'static'
 
 def generate_public_directory():
@@ -59,8 +60,9 @@ def main():
     # blocks = markdown_to_blocks(md)
     # print(blocks)
 
+    base_path = sys.argv[1] if len(sys.argv) == 2 else '/'
     generate_public_directory()
-    generate_page_recursive('content', 'template.html', 'public')
+    generate_page_recursive('content', 'template.html', 'docs', base_path)
     # generate_page('content/index.md', 'template.html', 'public/index.html')
 
 main()
